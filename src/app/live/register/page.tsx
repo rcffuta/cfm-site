@@ -1,14 +1,10 @@
-import { Features2 } from "@/src/components/Features";
+import SimpleWrapper from "@/src/components/common/SimpleWrapper";
+import Features from "@/src/components/Registration/stats";
 
 
 export default function LiveRegistrationStat() {
     return (
-        <div className="bg-simple-bg relative live-registration-stats">
-            <div className="simpleone"></div>
-            <div className="simpletwo"></div>
-            <div className="simplethree"></div>
-            <div className="simplefour"></div>
-            <div className="simplefive"></div>
+        <SimpleWrapper>
             <div className="mx-auto py-24 px-6">
                 <div className="text-center text-offwhite font-semibold">
                     <h1 className="text-5xl lg:text-5xl mb-6">
@@ -20,13 +16,8 @@ export default function LiveRegistrationStat() {
                 <br />
                 <br />
                 <br />
-                <Features2 />
+                <Features />
             </div>
-            <div className="simplesix"></div>
-            <div className="simpleseven"></div>
-            <div className="simpleeight"></div>
-            <div className="simplenine"></div>
-            <div className="simpleten"></div>
-        </div>
+        </SimpleWrapper>
     );
 }
