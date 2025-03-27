@@ -64,7 +64,7 @@ export default class MultipleItems extends Component {
                 {
                     breakpoint: 500,
                     settings: {
-                        slidesToShow: 1,
+                        slidesToShow: 3,
                         slidesToScroll: 1,
                         infinite: true,
                         dots: false

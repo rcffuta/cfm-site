@@ -23,6 +23,21 @@ const featuresdata: featuresdata[] = [
         heading: 'Real-time price data',
         subheading: 'Updating 24/7 using price data form the biggest exchanges',
     },
+    {
+        imgSrc: '/images/Features/featureThree.svg',
+        heading: 'Real-time price data',
+        subheading: 'Updating 24/7 using price data form the biggest exchanges',
+    },
+    {
+        imgSrc: '/images/Features/featureThree.svg',
+        heading: 'Real-time price data',
+        subheading: 'Updating 24/7 using price data form the biggest exchanges',
+    },
+    {
+        imgSrc: '/images/Features/featureThree.svg',
+        heading: 'Real-time price data',
+        subheading: 'Updating 24/7 using price data form the biggest exchanges',
+    },
 ]
 
 const Features = () => {
@@ -56,3 +71,38 @@ const Features = () => {
 }
 
 export default Features;
+
+
+export const Features2 = () => {
+    return (
+        <div
+            className="mx-auto max-w-7xl my-0 px-6 relative"
+            id="features-section"
+        >
+            {/* <div className="radial-bg hidden lg:block"></div> */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 ">
+                {featuresdata.map((items, i) => (
+                    <div
+                        className="bg-blue py-10 pr-12 pl-6 rounded-lg"
+                        key={i}
+                    >
+                        <div className="rounded-full gg h-16 w-16 flex items-center justify-center mb-10">
+                            <Image
+                                src={items.imgSrc}
+                                alt={items.imgSrc}
+                                width={24}
+                                height={30}
+                            />
+                        </div>
+                        <h5 className="text-offwhite text-lg font-medium mb-4">
+                            {items.heading}
+                        </h5>
+                        <p className="text-lightblue text-sm font-normal">
+                            {items.subheading}
+                        </p>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
