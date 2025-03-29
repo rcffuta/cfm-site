@@ -1,4 +1,6 @@
+import Auth from "../Auth";
 import { ArrowDesign } from "../common/ArrowDesign";
+import Logo from "../common/Logo";
 import Activities from "./activities";
 
 
@@ -16,9 +18,7 @@ export default function Homepage() {
                     {/* <div className="arrowTwo"></div> */}
 
                     <div className="col-span-7">
-                        <h1 className="text-4xl lg:text-7xl font-bold mb-5 text-white md:4px md:text-start text-center">
-                            Combined <br /> Family Meeting
-                        </h1>
+                        <Logo/>
                         <div className="text-white md:text-lg font-normal mb-10 md:text-start text-center max-w-2xl">
                             <p className="py-4">
                                 The Combined Family Meeting is an event where

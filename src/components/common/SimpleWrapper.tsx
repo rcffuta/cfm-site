@@ -3,7 +3,7 @@ import { ArrowDesign } from "./ArrowDesign";
 
 export default function SimpleWrapper(props: PropsWithChildren) {
     return (
-        <div className="bg-simple-bg relative live-registration-stats">
+        <section className="bg-simple-bg relative live-registration-stats">
 
             <ArrowDesign k={1} simple />
             <ArrowDesign k={2} simple />
@@ -18,6 +18,6 @@ export default function SimpleWrapper(props: PropsWithChildren) {
             <ArrowDesign k={9} simple />
             <ArrowDesign k={10} simple />
             
-        </div>
+        </section>
     );
 }

@@ -54,19 +54,19 @@ export default function Features() {
                         className="bg-blue py-10 pr-12 pl-6 rounded-lg"
                         key={i}
                     >
-                        <div className="rounded-full gg h-16 w-16 flex items-center justify-center mb-10">
+                        {/* <div className="rounded-full gg h-16 w-16 flex items-center justify-center mb-10">
                             <Image
                                 src={items.imgSrc}
                                 alt={items.imgSrc}
                                 width={24}
                                 height={30}
                             />
-                        </div>
-                        <h5 className="text-offwhite text-lg font-medium mb-4">
-                            {items.heading}
+                        </div> */}
+                        <h5 className="text-offwhite font-medium mb-4 text-8xl text-gradient">
+                            xxx
                         </h5>
-                        <p className="text-lightblue text-sm font-normal">
-                            {items.subheading}
+                        <p className="text-offwhite text-3xl font-normal">
+                            Peculiar Generation
                         </p>
                     </div>
                 ))}

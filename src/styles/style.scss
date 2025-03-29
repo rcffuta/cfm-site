@@ -36,6 +36,27 @@ html:not([data-scroll="0"]) .navbar {
 //     //     text-
 //     // }
 // }
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.text-gradient {
+    background: linear-gradient(90deg, #BD24DF, #2D6ADE);
+    background-size: 200% 200%;
+    animation: gradientShift 3s infinite linear;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
 .navbutton {
     background: linear-gradient(90deg, #BD24DF 0%, #2D6ADE 97.15%);
