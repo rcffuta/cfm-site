@@ -57,16 +57,26 @@ html:not([data-scroll="0"]) .navbar {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-
 .navbutton {
     background: linear-gradient(90deg, #BD24DF 0%, #2D6ADE 97.15%);
-    border-radius: 10px;
+    border-radius: 15px;
+    font-size: 1.25rem;
+    padding: 16px 24px;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
 .navbutton:hover {
     background: linear-gradient(90deg, #2D6ADE 0%, #BD24DF 97.15%);
+    transform: scale(1.1);
 }
 
+/* Disabled State */
+.navbutton:disabled {
+    background: linear-gradient(90deg, #B0B0B0 0%, #D3D3D3 97.15%);
+    cursor: not-allowed;
+    transform: none;
+    opacity: 0.6;
+}
 .arrow-design {
     max-height: 50px !important;
 }

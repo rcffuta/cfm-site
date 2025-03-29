@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import "../../styles/oracle.scss";
 // import Button from "./Button";
 import {
@@ -7,15 +7,16 @@ import {
     getDigitAtIndex,
     getRandomRaffle,
 } from "./utils";
-import SimpleWrapper from "../common/SimpleWrapper";
-import Image from "next/image";
-// import Winner from "./Winner";
-// import { AttendantModel } from "../lib/nobox/record-structures/attendants";
+import { socket } from "@/src/utils/socket";
 
 interface SlotItemProps {
     delay: number;
     chosen: number | null;
 }
+
+
+
+
 
 const SlotItem = (props: SlotItemProps) => {
     const [randomValue, setRandomValue] = useState<number | null>(null);
@@ -75,6 +76,8 @@ const SlotItem = (props: SlotItemProps) => {
 const SlotMachine = () => {
     const [value, setValue] = useState<number | null>(null);
 
+    const socketRef = useRef<string>(null);
+
     const [show, setShow] = useState(false);
 
     const getWinner = async () => {
@@ -96,19 +99,73 @@ const SlotMachine = () => {
     const timer_4 = generateRandomValue() + generateRandomValue();
 
 
-    useEffect(()=>{
-        (()=>{
-            if (value !== null) return;
+    // useEffect(()=>{
+    //     (()=>{
+    //         if (value !== null) return;
 
-            setTimeout(()=>{
-                setValue(12345);
+    //         setTimeout(()=>{
+    //             setValue(12345);
 
-                setTimeout(() => {
-                    setShow(true);
-                }, (timer_0 + timer_1 + timer_2 + timer_3 + timer_4) * 1000);
-            }, 3000)
-        })()
-    },[value]);
+    //             setTimeout(() => {
+    //                 setShow(true);
+    //             }, (timer_0 + timer_1 + timer_2 + timer_3 + timer_4) * 1000);
+    //         }, 3000)
+    //     })()
+    // },[value]);
+
+
+    // useEffect(() => {
+    //     socket.on("message", (msg: string) => {
+    //         // setMessages((prev) => [...prev, msg]);
+    //         console.debug("SOCKET: GOt", msg);
+    //     });
+
+    //     return () => {
+    //         socket.off("message");
+    //         socket.disconnect();
+    //     };
+    // }, []);
+
+
+    useEffect(() => {
+        socket.on("preparing", (msg: string) => {
+            console.debug("Waiting for selected participants", msg);
+            setValue(null)
+            setShow(false);
+        });
+
+        return () => {
+            socket.off("preparing");
+        };
+    }, []);
+
+    useEffect(() => {
+        socket.on("reset", (msg: string) => {
+            console.debug("Reset!");
+            setValue(null)
+            setShow(false);
+        });
+
+        return () => {
+            socket.off("reset");
+        };
+    }, []);
+
+    useEffect(() => {
+        socket.on("selection", (msg: string) => {
+            console.debug("Selected participant", msg);
+            const val = Number(msg);
+
+            if (!Boolean(val)) return console.debug("Invalid!", val);
+            setValue(()=>val);
+        });
+
+        return () => {
+            socket.off("selection");
+        };
+    }, []);
+
+
 
     const resetValue = () => {
         setValue(() => null);
