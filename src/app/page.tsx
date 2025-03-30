@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <main>
       <Homepage/>
-      <Companies/>
+      {/* <Companies/> */}
     </main>
   )
 }
