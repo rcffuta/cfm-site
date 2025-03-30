@@ -19,6 +19,7 @@ interface SlotItemProps {
 
 const toastconfig = {id:"oracleToast"};
 
+let timerId: NodeJS.Timeout;
 
 
 const SlotItem = (props: SlotItemProps) => {
@@ -79,9 +80,16 @@ const SlotItem = (props: SlotItemProps) => {
 const SlotMachine = () => {
     const [value, setValue] = useState<number | null>(null);
 
+    const timer_0 = generateRandomValue() + generateRandomValue();
+    const timer_1 = generateRandomValue() + generateRandomValue();
+    const timer_2 = generateRandomValue() + generateRandomValue();
+    const timer_3 = generateRandomValue() + generateRandomValue();
+    const timer_4 = generateRandomValue() + generateRandomValue();
+
+    const maxTimer = Math.max(timer_0, timer_1, timer_2, timer_3, timer_4);
     const socketRef = useRef<string>(null);
 
-    const [show, setShow] = useState(false);
+    const [info, setInfo] = useState<any>(null);
 
     const getWinner = async () => {
         const _all = [] as any[];//await AttendantModel.find({});
@@ -95,11 +103,6 @@ const SlotMachine = () => {
     };
 
 
-    const timer_0 = generateRandomValue() + generateRandomValue();
-    const timer_1 = generateRandomValue() + generateRandomValue();
-    const timer_2 = generateRandomValue() + generateRandomValue();
-    const timer_3 = generateRandomValue() + generateRandomValue();
-    const timer_4 = generateRandomValue() + generateRandomValue();
 
     useEffect(() => {
         socket.connect();
@@ -116,10 +119,20 @@ const SlotMachine = () => {
 
 
     useEffect(() => {
+        socket.on("selection:details:show", (user: string) => {
+            setInfo(()=>user);
+        });
+
+        return () => {
+            socket.off("selection:details:show");
+        };
+    }, []);
+
+    useEffect(() => {
         socket.on("preparing", (msg: string) => {
             toast.loading("loading", toastconfig);
             setValue(null)
-            setShow(false);
+            setInfo(null);
         });
 
         return () => {
@@ -131,7 +144,7 @@ const SlotMachine = () => {
         socket.on("reset", (msg: string) => {
             console.debug("Reset!");
             setValue(null)
-            setShow(false);
+            setInfo(null);
         });
 
         return () => {
@@ -146,6 +159,7 @@ const SlotMachine = () => {
 
             if (!Boolean(val)) return console.debug("Invalid!", val);
             setValue(()=>val);
+
         });
 
         return () => {
@@ -162,6 +176,23 @@ const SlotMachine = () => {
             socket.off("selection:error");
         };
     }, []);
+
+
+    // useEffect(() => {
+    //     (()=>{
+
+    //         if (!value) return;
+
+    //         if (timerId) return;
+
+    //         console.debug("waiting", maxTimer)
+
+            
+    //         timerId = setTimeout(()=>{
+    //             console.debug("Show Person!")
+    //         }, (maxTimer * 2) * 1000)
+    //     })()
+    // }, [maxTimer, value]);
 
 
 
@@ -207,8 +238,8 @@ const SlotMachine = () => {
 
 
             {
-                show && (
-                    <MemberDisplay/>
+                info && (
+                    <MemberDisplay name={info.firstname + " " + info.lastname}/>
                 )
             }
 
@@ -218,7 +249,7 @@ const SlotMachine = () => {
 };
 
 
-const MemberDisplay = () => {
+const MemberDisplay = (props: {name:string}) => {
     return (
         <div className="mem-dis-modal">
             <div className="bg-blue py-10 rounded-lg mem-item">
@@ -233,11 +264,11 @@ const MemberDisplay = () => {
                 <br />
                 <br />
                 <h5 className="text-offwhite text-7xl font-semibold mb-4">
-                    Precious Olusola
+                    {props.name}
                 </h5>
-                <p className="text-lightblue text-4xl font-normal text-center">
+                {/* <p className="text-lightblue text-4xl font-normal text-center">
                     400 Level <br/> Bible Study Unit
-                </p>
+                </p> */}
             </div>
         </div>
     );

@@ -15,7 +15,8 @@ const workdata: workdata[] = [
         heading: '🎮 Inter-Level Game Session: "The Oracle’s Call"',
         subheading:
             "An in-person game session where the Oracle has the power to summon any player from all levels into the game! Be ready—The Oracle can call you at any time! 🔥",
-        hiddenpara: "",
+        hiddenpara:
+            "An in-person game session where the Oracle has the power to summon any player from all levels into the game! Be ready—The Oracle can call you at any time! 🔥",
     },
     {
         imgSrc: "/images/Work/icon-two.svg",
@@ -23,7 +24,7 @@ const workdata: workdata[] = [
         subheading:
             "A fast-paced, high-energy quiz game where students from 100, 200, 300, 400, and 500 levels compete in a Kahoot-style battle! Be ready, or risk losing points for your level!",
         hiddenpara:
-            "standard dummy text ever since the 1500s, when an unknownprinter took a galley of type and scrambled it to make a type specimen book. It has survived...",
+            "",
     },
     {
         imgSrc: "/images/Work/icon-three.svg",
@@ -45,6 +46,10 @@ export default function Activities() {
     const { user } = useAuth();
 
     if (!user) return null;
+
+    workdata[0].subheading = "The Oracle’s Call:" + user.username;
+    workdata[0].heading = "Your Game ID:" + user.AID;
+
     return (
         <div className="container mx-auto act-wrapper">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
@@ -54,8 +59,14 @@ export default function Activities() {
 
 
                     return (
-                        <ActivityItem isLast={isOdd && isLast} subtitle={items.subheading} title={items.heading} key={i}/>
-                    )
+                        <ActivityItem
+                            isLast={isOdd && isLast}
+                            subtitle={items.subheading}
+                            title={items.heading}
+                            hiddenpara={items.hiddenpara}
+                            key={i}
+                        />
+                    );
                 })}
             </div>
         </div>
@@ -63,13 +74,16 @@ export default function Activities() {
 };
 
 
-function ActivityItem(props:{isLast?:boolean; title:string; subtitle:string}) {
+function ActivityItem(props: {
+    isLast?: boolean;
+    title: string;
+    subtitle: string;
+    hiddenpara: string;
+}) {
     return (
         <div
             className={`card-bb p-8 mx-auto ${
-                props.isLast
-                    ? "last:col-span-2 last:justify-self-center"
-                    : ""
+                props.isLast ? "last:col-span-2 last:justify-self-center" : ""
             }`.trim()}
             data-last={props.isLast}
         >
@@ -95,9 +109,10 @@ function ActivityItem(props:{isLast?:boolean; title:string; subtitle:string}) {
             <p className="text-base font-normal text-bluish text-center mt-2">
                 {props.subtitle}
             </p>
-            {/* <span className="text-base font-normal m-0 text-bluish text-center hides">
-                {items.hiddenpara}
-            </span> */}
+            <br/>
+            <span className="text-base font-normal m-0 text-bluish text-center">
+                {props.hiddenpara}
+            </span>
         </div>
     );
 }

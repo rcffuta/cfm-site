@@ -8,6 +8,7 @@ const toastconfig = {id: "oracleAdminToast"};
 export default function Oracle() {
 
     const [pause, setPause] = useState(false);
+    const [user, setUser] = useState<any>(null);
 
     const [level, setLevel] = useState("");
     const [gender, setGender] = useState("");
@@ -28,6 +29,9 @@ export default function Oracle() {
         socket.emit("reset");
     }
 
+    const handleShow = () => {
+        socket.emit("selection:details:show", user);
+    }
 
     useEffect(() => {
         socket.connect();
@@ -41,6 +45,16 @@ export default function Oracle() {
         };
     }, []);
 
+
+    useEffect(() => {
+        socket.on("selection:details", (user: any) => {
+            setUser(()=>user);
+        });
+
+        return () => {
+            socket.off("selection:details");
+        };
+    }, []);
 
     useEffect(() => {
         socket.on("preparing", (msg: string) => {
@@ -57,6 +71,7 @@ export default function Oracle() {
         socket.on("reset", (msg: string) => {
             toast.success("Oracle is ready", toastconfig);
             setPause(false);
+            setUser(() => null);
         });
 
         return () => {
@@ -78,8 +93,9 @@ export default function Oracle() {
     useEffect(()=>{
         (()=>{
             console.debug("State:", pause);
+            console.debug("User:", user);
         })()
-    },[ pause]);
+    },[ pause, user]);
 
     return (
         <SimpleWrapper>
@@ -95,41 +111,43 @@ export default function Oracle() {
 
             <div className="space-y-4 w-fit mx-auto mb-5">
                 <div className="flex flex-wrap gap-4">
-                    {["100", "200", "300", "400", "500", "All"].map((option) => (
-                        <label
-                            key={option}
-                            className={`relative flex items-center cursor-pointer px-4 py-2 rounded-lg border  text-white ${
-                                level === option
-                                    ? "bg-gradient-to-r from-[#BD24DF] to-[#2D6ADE]"
-                                    : "bg-gray-200 text-gray-700"
-                            } transition-all duration-300`}
-                        >
-                            <input
-                                type="radio"
-                                name="gradient-radio"
-                                value={option}
-                                checked={level === option}
-                                onChange={() => setLevel(option)}
-                                className="sr-only"
-                            />
-                            <div
-                                className={`w-5 h-5 border-2 rounded-full flex items-center justify-center ${
+                    {["100", "200", "300", "400", "500", "All"].map(
+                        (option) => (
+                            <label
+                                key={option}
+                                className={`relative flex items-center cursor-pointer px-4 py-2 rounded-lg border  text-white ${
                                     level === option
-                                        ? "border-white bg-white"
-                                        : "border-gray-500"
-                                }`}
+                                        ? "bg-gradient-to-r from-[#BD24DF] to-[#2D6ADE]"
+                                        : "bg-gray-200 text-gray-700"
+                                } transition-all duration-300`}
                             >
-                                {level === option && (
-                                    <div className="w-2.5 h-2.5 bg-gradient-to-r from-[#BD24DF] to-[#2D6ADE] rounded-full"></div>
-                                )}
-                            </div>
-                            <span className="ml-3">{option}</span>
-                        </label>
-                    ))}
+                                <input
+                                    type="radio"
+                                    name="gradient-radio"
+                                    value={option}
+                                    checked={level === option}
+                                    onChange={() => setLevel(option)}
+                                    className="sr-only"
+                                />
+                                <div
+                                    className={`w-5 h-5 border-2 rounded-full flex items-center justify-center ${
+                                        level === option
+                                            ? "border-white bg-white"
+                                            : "border-gray-500"
+                                    }`}
+                                >
+                                    {level === option && (
+                                        <div className="w-2.5 h-2.5 bg-gradient-to-r from-[#BD24DF] to-[#2D6ADE] rounded-full"></div>
+                                    )}
+                                </div>
+                                <span className="ml-3">{option}</span>
+                            </label>
+                        )
+                    )}
                 </div>
             </div>
 
-            <br/>
+            <br />
 
             <div className="space-y-4 max-w-[50%] w-fit mb-5">
                 {/* <label className="block text-white font-medium">
@@ -185,6 +203,24 @@ export default function Oracle() {
                     // disabled={pause}
                 >
                     Reset
+                </button>
+
+                <h2 className="text-offwhite font-bold text-4xl">
+                    {user && (
+                        <span>
+                            {user.firstname} {user.lastname}
+                        </span>
+                    )}
+                </h2>
+
+                <br/>
+
+                <button
+                    onClick={handleShow}
+                    className="navbutton px-6 py-3 btn-md text-lg font-bold text-white rounded-2xl shadow-lg transition-all hover:scale-110"
+                    disabled={!user}
+                >
+                    Show Member
                 </button>
             </div>
         </SimpleWrapper>
