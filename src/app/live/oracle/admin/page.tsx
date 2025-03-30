@@ -8,11 +8,19 @@ const toastconfig = {id: "oracleAdminToast"};
 export default function Oracle() {
 
     const [pause, setPause] = useState(false);
+
+    const [level, setLevel] = useState("");
+    const [gender, setGender] = useState("");
     
     const handleRoll = () => {
         if (pause) return;
+
+        const filter = {
+            level,
+            gender
+        }
         
-        socket.emit("select", "I wanna roll!");
+        socket.emit("select", filter);
     }
 
     const handleReset = () => {
@@ -56,11 +64,22 @@ export default function Oracle() {
         };
     }, []);
 
+    useEffect(() => {
+        socket.on("selection:error", (msg: string) => {
+            toast.error(msg, toastconfig);
+            setPause(true);
+        });
+
+        return () => {
+            socket.off("selection:error");
+        };
+    }, []);
+
     useEffect(()=>{
         (()=>{
             console.debug("State:", pause);
         })()
-    },[ pause])
+    },[ pause]);
 
     return (
         <SimpleWrapper>
@@ -72,7 +91,82 @@ export default function Oracle() {
                     Never forget. Never Bias
                 </p>
             </div>
-            <div className="py-20"></div>
+            <div className="py-10"></div>
+
+            <div className="space-y-4 w-fit mx-auto mb-5">
+                <div className="flex space-x-4">
+                    {["100", "200", "300"].map((option) => (
+                        <label
+                            key={option}
+                            className={`relative flex items-center cursor-pointer px-4 py-2 rounded-lg border  text-white ${
+                                level === option
+                                    ? "bg-gradient-to-r from-[#BD24DF] to-[#2D6ADE]"
+                                    : "bg-gray-200 text-gray-700"
+                            } transition-all duration-300`}
+                        >
+                            <input
+                                type="radio"
+                                name="gradient-radio"
+                                value={option}
+                                checked={level === option}
+                                onChange={() => setLevel(option)}
+                                className="sr-only"
+                            />
+                            <div
+                                className={`w-5 h-5 border-2 rounded-full flex items-center justify-center ${
+                                    level === option
+                                        ? "border-white bg-white"
+                                        : "border-gray-500"
+                                }`}
+                            >
+                                {level === option && (
+                                    <div className="w-2.5 h-2.5 bg-gradient-to-r from-[#BD24DF] to-[#2D6ADE] rounded-full"></div>
+                                )}
+                            </div>
+                            <span className="ml-3">{option}</span>
+                        </label>
+                    ))}
+                </div>
+            </div>
+
+            <div className="space-y-4 max-w-[50%] w-fit mb-5">
+                {/* <label className="block text-white font-medium">
+                    Select an Option:
+                </label> */}
+                <div className="flex space-x-4">
+                    {["Male", "Female", "Both"].map((option) => (
+                        <label
+                            key={option}
+                            className={`relative flex items-center cursor-pointer px-4 py-2 rounded-lg border  text-white ${
+                                gender === option
+                                    ? "bg-gradient-to-r from-[#BD24DF] to-[#2D6ADE]"
+                                    : "bg-gray-200 text-gray-700"
+                            } transition-all duration-300`}
+                        >
+                            <input
+                                type="radio"
+                                name="gradient-radio"
+                                value={option}
+                                checked={gender === option}
+                                onChange={() => setGender(option)}
+                                className="sr-only"
+                            />
+                            <div
+                                className={`w-5 h-5 border-2 rounded-full flex items-center justify-center ${
+                                    gender === option
+                                        ? "border-white bg-white"
+                                        : "border-gray-500"
+                                }`}
+                            >
+                                {gender === option && (
+                                    <div className="w-2.5 h-2.5 bg-gradient-to-r from-[#BD24DF] to-[#2D6ADE] rounded-full"></div>
+                                )}
+                            </div>
+                            <span className="ml-3">{option}</span>
+                        </label>
+                    ))}
+                </div>
+            </div>
             <div className="text-center">
                 <button
                     onClick={handleRoll}

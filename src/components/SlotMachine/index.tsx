@@ -153,6 +153,16 @@ const SlotMachine = () => {
         };
     }, []);
 
+    useEffect(() => {
+        socket.on("selection:error", (msg: string) => {
+            toast.error(msg, toastconfig);
+        });
+
+        return () => {
+            socket.off("selection:error");
+        };
+    }, []);
+
 
 
     const resetValue = () => {

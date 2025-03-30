@@ -19,6 +19,7 @@
     "clsx": "^2.1.1",
     "eslint": "8.40.0",
     "next": "15.2.4",
+    "nobox-client": "^1.13.2",
     "postcss": "8.4.23",
     "react": "19.0.0",
     "react-dom": "19.0.0",
