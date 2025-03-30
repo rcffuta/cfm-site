@@ -94,7 +94,7 @@ export default function Oracle() {
             <div className="py-10"></div>
 
             <div className="space-y-4 w-fit mx-auto mb-5">
-                <div className="flex space-x-4">
+                <div className="flex flex-wrap gap-4">
                     {["100", "200", "300", "400", "500", "All"].map((option) => (
                         <label
                             key={option}
@@ -129,7 +129,9 @@ export default function Oracle() {
                 </div>
             </div>
 
-            <div className="space-y-4 max-w-[50%] w-fit mb-5 mx-auto">
+            <br/>
+
+            <div className="space-y-4 max-w-[50%] w-fit mb-5">
                 {/* <label className="block text-white font-medium">
                     Select an Option:
                 </label> */}

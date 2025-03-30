@@ -2,6 +2,8 @@ import { Toaster } from 'react-hot-toast';
 import '../styles/style.scss';
 import '@/node_modules/react-modal-video/scss/modal-video.scss';
 import { AuthProvider } from '../context/AuthContext';
+import { AttendeeModel } from '../lib/nobox/structure/attendee';
+import AttendeePill from '../components/common/AttendeePill';
 
 
 export const metadata = {
@@ -21,6 +23,7 @@ export default function RootLayout({
       <html lang="en">
           <body>
               <AuthProvider >
+                <AttendeePill/>
                 {children}
               </AuthProvider>
 

@@ -21,9 +21,9 @@ export default function Homepage() {
 
                         <div className="text-center">
 
-                            <Logo block />
+                            <Logo />
                         </div>
-                        <div className="text-white md:text-lg font-normal mb-10 md:text-start text-center max-w-2xl">
+                        <div className="text-white md:text-lg font-normal mb-10 md:text-start text-center max-w-2xl mx-auto">
                             <p className="py-4">
                                 The Combined Family Meeting is an event where
                                 all members of all levels come together as one
