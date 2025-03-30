@@ -45,21 +45,15 @@ export default function Homepage() {
                     </div>
 
                     <div className="col-span-5 lg:-m-48">
-                        {/* <div className="arrowThree"></div> */}
                         <ArrowDesign k={3} />
                         <ArrowDesign k={4} />
                         <ArrowDesign k={5} />
-                        {/* <div className="arrowFour"></div>
-                        <div className="arrowFive"></div> */}
 
                         <Auth />
                         <Activities />
                         <ArrowDesign k={6} />
                         <ArrowDesign k={7} />
                         <ArrowDesign k={8} />
-                        {/* <div className="arrowSix"></div>
-                        <div className="arrowSeven"></div>
-                        <div className="arrowEight"></div> */}
                     </div>
                 </div>
                 {/* </div> */}
