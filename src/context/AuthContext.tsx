@@ -47,10 +47,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         toast.loading("Checking you...", toastConfig);
 
         // Load user from localStorage on mount
-        // const storedUser = localStorage.getItem(USER_STORE_ID);
-        // if (storedUser) {
-        //     setUser(JSON.parse(storedUser));
-        // }
+        const storedUser = localStorage.getItem(USER_STORE_ID);
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+        }
 
         setLoading(false);
         toast.dismiss(toastConfig.id);
@@ -67,6 +67,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
             toast.success("Signed In!", toastAuthConfig);
             localStorage.setItem(USER_STORE_ID, JSON.stringify(data));
             setUser(data);
+            setLoading(false);
         });
     }, []);
 
@@ -75,6 +76,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         socket.on("register:error", (error) => {
             toast.error("Error Occurred!", toastAuthConfig);
             console.error("Register error:", error);
+            setLoading(false);
         });
     }, []);
 
@@ -84,6 +86,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
             
             toast.error("You're not recognized!" + " " + msg, toastAuthConfig);
             setCheckedmail(false)
+            setLoading(false);
         });
     }, []);
 
@@ -92,19 +95,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         socket.on("register:check:verify", (msg) => {
             
             toast.success("You're recognized!" + " " + (msg.firstname || ""), toastAuthConfig);
-            setCheckedmail(true)
+            setCheckedmail(true);
+            setLoading(false);
         });
     }, []);
 
     // Function to register user
     const signIn = async (username: string, email: string) => {
         toast.loading("Signin in...", toastAuthConfig);
+        setLoading(true);
         socket.emit("register", { username, email });
     };
 
     const checkMail = (mail:string) => {
         toast.loading("Checking you...", toastAuthConfig);
-        console.debug(mail)
+        setLoading(true);
         socket.emit("register:check", mail);
     }
 

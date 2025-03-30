@@ -8,7 +8,8 @@ type InputFieldProps = {
     placeholder: string;
     error?: string;
     onChange:(val:string)=>void;
-    disabled?: boolean
+    disabled?: boolean;
+    autoFocus?: boolean;
 }
 
 function InputField(props: InputFieldProps) {
@@ -22,6 +23,7 @@ function InputField(props: InputFieldProps) {
                 type={type}
                 disabled={disabled}
                 onChange={(e)=>onChange(e.target.value)}
+                autoFocus={props.autoFocus}
             />
             {error && <p className="form-error mt-1 font-medium">
                 {error}
@@ -46,7 +48,7 @@ async function validateEmail(email: string) {
 }
 
 export function SignInForm() {
-    const { user, signIn, checkMail, checkedMail } = useAuth();
+    const { user, signIn, checkMail, checkedMail, loading } = useAuth();
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState<string>("");
     const [error, setError] = useState<FormError>({} as FormError);
@@ -81,6 +83,7 @@ export function SignInForm() {
                     setEmail(val)}
                 }
                 disabled={checkedMail}
+                autoFocus={!checkedMail}
                 error={error.email}
             />
 
@@ -90,6 +93,7 @@ export function SignInForm() {
                     // type="text"
                     onChange={(val) => setUsername(val)}
                     error={error.username}
+                    autoFocus={checkedMail}
                 />
             )}
 
@@ -97,8 +101,9 @@ export function SignInForm() {
                 <button
                     type="submit"
                     className="bg-primary w-full py-3 rounded-lg text-lg text-white font-medium border border-primary hover:text-primary hover:bg-transparent"
+                    disabled={loading}
                 >
-                    Sign In
+                    {loading ? "Loading..." : (checkedMail ? "Continue" : "Sign In")}
                 </button>
             </div>
         </form>

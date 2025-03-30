@@ -25,7 +25,7 @@ export default function Auth() {
                                 width: "auto",
                                 height: "auto",
                             }}
-                            src="/logo.svg"
+                            src="/images/Logo/logo.png"
                         />
                     </Link>
                 </div>
