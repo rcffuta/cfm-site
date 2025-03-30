@@ -64,6 +64,14 @@ html:not([data-scroll="0"]) .navbar {
     }
 }
 
+.btn-md {
+    width: 14rem;
+}
+
+.header {
+    line-height: auto !important;
+}
+
 .text-gradient {
     background: linear-gradient(90deg, #BD24DF, #2D6ADE);
     background-size: 200% 200%;

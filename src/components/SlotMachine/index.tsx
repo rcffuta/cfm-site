@@ -101,6 +101,19 @@ const SlotMachine = () => {
     const timer_3 = generateRandomValue() + generateRandomValue();
     const timer_4 = generateRandomValue() + generateRandomValue();
 
+    useEffect(() => {
+        socket.connect();
+
+        if (socket.connected) {
+            toast.success("Connected!");
+        }
+
+
+        return () => {
+            socket.disconnect();
+        };
+    }, []);
+
 
     useEffect(() => {
         socket.on("preparing", (msg: string) => {
