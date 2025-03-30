@@ -12,15 +12,16 @@ interface workdata {
 const workdata: workdata[] = [
     {
         imgSrc: "/images/Work/icon-one.svg",
-        heading: "Oracle",
-        subheading: "You're signed in as for the Games session",
+        heading: '🎮 Inter-Level Game Session: "The Oracle’s Call"',
+        subheading:
+            "An in-person game session where the Oracle has the power to summon any player from all levels into the game! Be ready—The Oracle can call you at any time! 🔥",
         hiddenpara: "",
     },
     {
         imgSrc: "/images/Work/icon-two.svg",
-        heading: "Accort",
+        heading: "🔥 Accort: The Quiz Showdown",
         subheading:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry and this",
+            "A fast-paced, high-energy quiz game where students from 100, 200, 300, 400, and 500 levels compete in a Kahoot-style battle! Be ready, or risk losing points for your level!",
         hiddenpara:
             "standard dummy text ever since the 1500s, when an unknownprinter took a galley of type and scrambled it to make a type specimen book. It has survived...",
     },
@@ -29,13 +30,13 @@ const workdata: workdata[] = [
         heading: "🍽️ Inter-Level Cooking Competition Overview",
         subheading:
             "The Inter-Level Cooking Competition is a fun, engaging, and competitive session between 100, 200, 300, 400, and 500 level.",
-        hiddenpara:
-            "",
+        hiddenpara: "",
     },
     {
         imgSrc: "/images/Work/icon-three.svg",
-        heading: "Variety Session",
-        subheading: "",
+        heading: '🎭 Inter-Level Variety Session: "The Oracle’s Arena"',
+        subheading:
+            "An exciting variety session where The Oracle controls the game, summoning students from all levels to participate in different challenges! 🚀",
         hiddenpara: "",
     },
 ];

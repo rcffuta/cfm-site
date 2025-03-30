@@ -18,7 +18,11 @@ export default function Homepage() {
                     {/* <div className="arrowTwo"></div> */}
 
                     <div className="col-span-7">
-                        <Logo/>
+
+                        <div className="text-center">
+
+                            <Logo block />
+                        </div>
                         <div className="text-white md:text-lg font-normal mb-10 md:text-start text-center max-w-2xl">
                             <p className="py-4">
                                 The Combined Family Meeting is an event where
