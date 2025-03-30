@@ -58,17 +58,17 @@ export default function Features() {
         };
     }, []);
 
-    useEffect(() => {
-        let intervalId;
-        (() => {
-            console.debug(stat);
+    // useEffect(() => {
+    //     let intervalId;
+    //     (() => {
+    //         console.debug(stat);
 
-            intervalId = setInterval(()=>{
-                socket.emit("attendee:stats:seek");
-            }, 15000)
+    //         intervalId = setInterval(()=>{
+    //             socket.emit("attendee:stats:seek");
+    //         }, 15000)
 
-        })();
-    }, [stat]);
+    //     })();
+    // }, [stat]);
 
 
     const {total=0, levels=[]} = stat;
