@@ -16,8 +16,8 @@ export default function Oracle() {
         if (pause) return;
 
         const filter = {
-            level,
-            gender
+            level: level.toLowerCase(),
+            gender: gender.toLowerCase(),
         }
         
         socket.emit("select", filter);
@@ -95,7 +95,7 @@ export default function Oracle() {
 
             <div className="space-y-4 w-fit mx-auto mb-5">
                 <div className="flex space-x-4">
-                    {["100", "200", "300"].map((option) => (
+                    {["100", "200", "300", "400", "500", "All"].map((option) => (
                         <label
                             key={option}
                             className={`relative flex items-center cursor-pointer px-4 py-2 rounded-lg border  text-white ${
