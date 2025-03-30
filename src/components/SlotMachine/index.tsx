@@ -8,6 +8,7 @@ import {
     getRandomRaffle,
 } from "./utils";
 import { socket } from "@/src/utils/socket";
+import toast from "react-hot-toast";
 
 interface SlotItemProps {
     delay: number;
@@ -15,6 +16,8 @@ interface SlotItemProps {
 }
 
 
+
+const toastconfig = {id:"oracleToast"};
 
 
 
@@ -99,37 +102,9 @@ const SlotMachine = () => {
     const timer_4 = generateRandomValue() + generateRandomValue();
 
 
-    // useEffect(()=>{
-    //     (()=>{
-    //         if (value !== null) return;
-
-    //         setTimeout(()=>{
-    //             setValue(12345);
-
-    //             setTimeout(() => {
-    //                 setShow(true);
-    //             }, (timer_0 + timer_1 + timer_2 + timer_3 + timer_4) * 1000);
-    //         }, 3000)
-    //     })()
-    // },[value]);
-
-
-    // useEffect(() => {
-    //     socket.on("message", (msg: string) => {
-    //         // setMessages((prev) => [...prev, msg]);
-    //         console.debug("SOCKET: GOt", msg);
-    //     });
-
-    //     return () => {
-    //         socket.off("message");
-    //         socket.disconnect();
-    //     };
-    // }, []);
-
-
     useEffect(() => {
         socket.on("preparing", (msg: string) => {
-            console.debug("Waiting for selected participants", msg);
+            toast.loading("loading", toastconfig);
             setValue(null)
             setShow(false);
         });
@@ -153,7 +128,7 @@ const SlotMachine = () => {
 
     useEffect(() => {
         socket.on("selection", (msg: string) => {
-            console.debug("Selected participant", msg);
+            toast.success("Ready!", toastconfig);
             const val = Number(msg);
 
             if (!Boolean(val)) return console.debug("Invalid!", val);

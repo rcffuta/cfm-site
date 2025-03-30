@@ -3,7 +3,8 @@
 import SimpleWrapper from "@/src/components/common/SimpleWrapper";
 import { socket } from "@/src/utils/socket";
 import { useEffect, useState } from "react";
-
+import toast from "react-hot-toast";
+const toastconfig = {id: "oracleAdminToast"};
 export default function Oracle() {
 
     const [pause, setPause] = useState(false);
@@ -22,8 +23,8 @@ export default function Oracle() {
 
     useEffect(() => {
         socket.on("preparing", (msg: string) => {
-            console.debug("Waiting for selected participants", msg);
             setPause(true);
+            toast.loading("Oracle is preparing", toastconfig);
         });
 
         return () => {
@@ -33,7 +34,7 @@ export default function Oracle() {
 
     useEffect(() => {
         socket.on("reset", (msg: string) => {
-            console.debug("Reset!");
+            toast.success("Oracle is ready", toastconfig);
             setPause(false);
         });
 
