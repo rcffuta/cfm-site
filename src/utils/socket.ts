@@ -12,4 +12,4 @@ const connect = (path:string)=>{
 export const socket = connect("oracle");
 // export const regsocket = connect("register");
 // WebSocket connection
-export const authsocket = io("register");
+export const authsocket = connect("register");

@@ -3,6 +3,7 @@ import { authsocket as socket } from "@/src/utils/socket";
 import { Generation } from "@codepraycode/rcffuta-lib";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import toast, { ToastOptions } from "react-hot-toast";
 
 interface featuresdata {
     imgSrc: string;
@@ -21,15 +22,35 @@ type RegisterStat = {
     levels: LevelProfile[];
 };
 
+const liveToast: ToastOptions = {
+    id: "liveToast",
+    position: "top-right",
+}
+
 export default function Features() {
 
     const [stat, setStat] = useState<RegisterStat>({} as RegisterStat);
 
     useEffect(() => {
-        socket.on("stat", (stat: RegisterStat) => {
+        socket.connect();
+
+        if (socket.connected) {
+            toast.success("Live!", liveToast);
+        } else {
+            toast.error("Not Live!", liveToast);
+        }
+
+        return () => {
+            socket.disconnect();
+        };
+    }, []);
+
+    useEffect(() => {
+        socket.on("attendee:stats", (stat: RegisterStat) => {
             // toast.loading("Oracle is preparing", toastconfig);
             console.debug(stat);
-            setStat(()=>(stat))
+            toast.success("Live!", {...liveToast, duration: 15000});
+            setStat(() => stat);
         });
 
         return () => {
@@ -38,8 +59,14 @@ export default function Features() {
     }, []);
 
     useEffect(() => {
+        let intervalId;
         (() => {
             console.debug(stat);
+
+            intervalId = setInterval(()=>{
+                socket.emit("attendee:stats:seek");
+            }, 15000)
+
         })();
     }, [stat]);
 

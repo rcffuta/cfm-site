@@ -2,6 +2,7 @@ import SimpleWrapper from "@/src/components/common/SimpleWrapper";
 import SlotMachine from "@/src/components/SlotMachine";
 
 export default function Oracle() {
+    
     return (
         <SimpleWrapper>
             <div className="pt-20 text-center text-offwhite font-bold">
