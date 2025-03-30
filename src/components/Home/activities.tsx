@@ -1,4 +1,5 @@
 "use client"
+import { useAuth } from '@/src/context/AuthContext';
 import Image from 'next/image';
 
 interface workdata {
@@ -37,6 +38,9 @@ const workdata: workdata[] = [
 ]
 
 export default function Activities() {
+    const { user } = useAuth();
+
+    if (!user) return null;
     return (
         <div className="container mx-auto act-wrapper">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">

@@ -48,7 +48,7 @@ export default function Homepage() {
                         {/* <div className="arrowFour"></div>
                         <div className="arrowFive"></div> */}
 
-                        {/* <Auth /> */}
+                        <Auth />
                         <Activities />
                         <ArrowDesign k={6} />
                         <ArrowDesign k={7} />

@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@codepraycode/rcffuta-lib": "^3.0.0",
     "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^2.0.18",
     "@types/node": "20.2.0",

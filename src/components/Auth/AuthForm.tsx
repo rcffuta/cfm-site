@@ -1,5 +1,6 @@
 "use client";
 
+import { useAuth } from "@/src/context/AuthContext";
 import { useState } from "react";
 type FormError = { email: string; username: string };
 type InputFieldProps = {
@@ -11,7 +12,7 @@ type InputFieldProps = {
 }
 
 function InputField(props: InputFieldProps) {
-    const {type="text", placeholder, error, disabled} = props;
+    const {type="text", placeholder, error, disabled, onChange} = props;
 
     return (
         <div className="mb-[30px]">
@@ -20,6 +21,7 @@ function InputField(props: InputFieldProps) {
                 className="w-full rounded-md border border-white border-solid bg-transparent px-5 py-3 text-base text-dark outline-none transition placeholder:text-grey focus:border-primary focus-visible:shadow-none text-white dark:focus:border-primary"
                 type={type}
                 disabled={disabled}
+                onChange={(e)=>onChange(e.target.value)}
             />
             {error && <p className="form-error mt-1 font-medium">
                 {error}
@@ -44,8 +46,9 @@ async function validateEmail(email: string) {
 }
 
 export function SignInForm() {
+    const { user, signIn, checkMail, checkedMail } = useAuth();
     const [email, setEmail] = useState("");
-    const [username, setUsername] = useState<string | null>(null);
+    const [username, setUsername] = useState<string>("");
     const [error, setError] = useState<FormError>({} as FormError);
 
 
@@ -54,27 +57,13 @@ export function SignInForm() {
 
         e.preventDefault();
 
-        if (username === null) {
-            const user = await validateEmail(email);
-
-            setUsername(()=>"");
-            setError((p)=>{
-                return {
-                    ...p,
-                    email: "Not Done yet"
-                }
-            })
-
+        if (!checkedMail) {
+            console.debug(email)
+            checkMail(email);
             return;
         }
 
-        await wait(5);
-        setError((p) => {
-            return {
-                ...p,
-                username: "Not Done yet",
-            };
-        });
+        signIn(username, email);
 
 
     }
@@ -87,12 +76,15 @@ export function SignInForm() {
                 placeholder="Enter your indexed email address"
                 // error=""
                 type="email"
-                onChange={(val) => setEmail(val)}
-                disabled={username !== null}
+                onChange={(val) => {
+                    // if (checkedMail) return
+                    setEmail(val)}
+                }
+                disabled={checkedMail}
                 error={error.email}
             />
 
-            {username === null ? null : (
+            {checkedMail && (
                 <InputField
                     placeholder="Set a username"
                     // type="text"

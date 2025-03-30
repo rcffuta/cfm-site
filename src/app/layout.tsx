@@ -1,6 +1,7 @@
 import { Toaster } from 'react-hot-toast';
 import '../styles/style.scss';
 import '@/node_modules/react-modal-video/scss/modal-video.scss';
+import { AuthProvider } from '../context/AuthContext';
 
 
 export const metadata = {
@@ -19,9 +20,10 @@ export default function RootLayout({
   return (
       <html lang="en">
           <body>
-              {/* <Navbar /> */}
-              {children}
-              {/* <Footer /> */}
+              <AuthProvider >
+                {children}
+              </AuthProvider>
+
               <Toaster
                   toastOptions={{
                       style: {
