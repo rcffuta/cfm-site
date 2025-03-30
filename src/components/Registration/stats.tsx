@@ -1,5 +1,5 @@
 "use client";
-import { regsocket } from "@/src/utils/socket";
+import { authsocket as socket } from "@/src/utils/socket";
 import { Generation } from "@codepraycode/rcffuta-lib";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -26,14 +26,14 @@ export default function Features() {
     const [stat, setStat] = useState<RegisterStat>({} as RegisterStat);
 
     useEffect(() => {
-        regsocket.on("stat", (stat: RegisterStat) => {
+        socket.on("stat", (stat: RegisterStat) => {
             // toast.loading("Oracle is preparing", toastconfig);
             console.debug(stat);
             setStat(()=>(stat))
         });
 
         return () => {
-            regsocket.off("stat");
+            socket.off("stat");
         };
     }, []);
 

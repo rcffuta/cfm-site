@@ -129,7 +129,7 @@ export default function Oracle() {
                 </div>
             </div>
 
-            <div className="space-y-4 max-w-[50%] w-fit mb-5">
+            <div className="space-y-4 max-w-[50%] w-fit mb-5 mx-auto">
                 {/* <label className="block text-white font-medium">
                     Select an Option:
                 </label> */}
