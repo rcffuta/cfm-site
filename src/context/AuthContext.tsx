@@ -160,28 +160,32 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     };
 
     const checkMail = (mail:string) => {
-        toast.loading("Checking you...", toastAuthConfig);
-        setLoading(true);
-        // socket.emit("register:check", mail);
 
-        MemberModel.findOne({ email: mail })
-        .then((mem: MemberObject)=>{
-            if (!mem) {
-                console.error("Error With checking mail", "No Member" );
-                toast.error("You're not recognized!", toastAuthConfig);
-                return
-            }
-            toast.success(
-                "You're recognized!" + " " + (mem.firstname || ""),
-                toastAuthConfig
-            );
-            setCheckedmail(true);
-        }).catch((err: Error)=>{
-            console.error("Error With checking mail", err);
-            toast.error("Error with signing in");
-        }).finally(()=>{
-            setLoading(false);
-        })
+        toast.error("We're closed!", {id:"closedToast"});
+
+
+        // toast.loading("Checking you...", toastAuthConfig);
+        // setLoading(true);
+        // // socket.emit("register:check", mail);
+
+        // MemberModel.findOne({ email: mail })
+        // .then((mem: MemberObject)=>{
+        //     if (!mem) {
+        //         console.error("Error With checking mail", "No Member" );
+        //         toast.error("You're not recognized!", toastAuthConfig);
+        //         return
+        //     }
+        //     toast.success(
+        //         "You're recognized!" + " " + (mem.firstname || ""),
+        //         toastAuthConfig
+        //     );
+        //     setCheckedmail(true);
+        // }).catch((err: Error)=>{
+        //     console.error("Error With checking mail", err);
+        //     toast.error("Error with signing in");
+        // }).finally(()=>{
+        //     setLoading(false);
+        // })
     }
 
     // Function to logout

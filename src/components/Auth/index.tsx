@@ -42,7 +42,7 @@ export default function Auth() {
             >
                 Forgot Password?
             </a> */}
-            <p className="text-body-secondary text-white text-base">
+            {/* <p className="text-body-secondary text-white text-base">
                 Not registered?{" "}
                 <Link
                     className="text-primary hover:underline"
@@ -51,7 +51,7 @@ export default function Auth() {
                 >
                     Register
                 </Link>
-            </p>
+            </p> */}
         </div>
     );
 }

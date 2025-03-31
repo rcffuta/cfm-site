@@ -79,6 +79,13 @@ html:not([data-scroll="0"]) .navbar {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+.atd-pill {
+    background: linear-gradient(90deg, rgba(189, 36, 223, 0.1) 0%, rgba(45, 106, 222, 0.1) 97.15%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+
 .navbutton {
     background: linear-gradient(90deg, #BD24DF 0%, #2D6ADE 97.15%);
     border-radius: 15px;
