@@ -3,8 +3,8 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { authsocket as socket } from "../utils/socket";
 import toast from "react-hot-toast";
 import { MemberModel } from "../lib/nobox-live/structures/members";
-import { MemberObject } from "@codepraycode/rcffuta-lib";
 import { AttendeeModel } from "../lib/nobox/structure/attendee";
+import { MemberObject } from "../lib/nobox-live/types";
 
 // Define user type
 interface User {
@@ -24,9 +24,22 @@ interface AuthContextType {
     logout: () => void;
 }
 
-const generateId = (): string => {
-    return Math.floor(10000 + Math.random() * 90000).toString();
-};
+function* raffleIdGenerator(): Generator<string> {
+    const base = 100000 + Math.floor(Math.random() * 900000); // random 6-digit base
+    let counter = 0;
+
+    while (true) {
+        // Spread out using a mix of increments
+        const offset =
+            Math.floor(Math.sin(counter) * 1000) + ((counter * 137) % 1000);
+        const id = ((base + offset) % 900000) + 100000; // Keep within 6-digit range
+        yield id.toString();
+        counter++;
+    }
+}
+
+const raffleIdGen = raffleIdGenerator();
+
 
 const USER_STORE_ID = "cfxxmxxuser";
 
@@ -126,7 +139,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         try {
 
             while (!isUnique) {
-                id = generateId();
+                id = raffleIdGen.next().value ;
                 const usr = await AttendeeModel.findOne({ AID: id });
                 if (!usr) isUnique = true;
             }

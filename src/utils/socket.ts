@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 
-const base = "192.168.8.233:3020";
+const base = "192.168.138.233:3020";
 
 const connect = (path:string)=>{
     return io( `${base}/${path}`, {

@@ -1,7 +1,6 @@
 "use client";
+import { Generation } from "@/src/lib/nobox-live/types";
 import { authsocket as socket } from "@/src/utils/socket";
-import { Generation } from "@codepraycode/rcffuta-lib";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import toast, { ToastOptions } from "react-hot-toast";
 
