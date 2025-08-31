@@ -8,7 +8,7 @@ interface Attendee {
 }
 
 export const AttendeeStructure: Space<Attendee> = {
-    space: "Attendee",
+    space: "Attendeev22",
     description: "A Record Space for Attendees",
     structure: {
         email: {
